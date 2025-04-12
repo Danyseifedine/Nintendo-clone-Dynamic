@@ -65,7 +65,7 @@
                         <p
                             class="text-[#e60012] text-xs hover:underline font-semibold">email: user@user.com   (Regular User)</p>
                         <p
-                            class="text-[#e60012] text-xs hover:underline font-semibold">password: user</p>
+                            class="text-[#e60012] text-xs hover:underline font-semibold">password: password</p>
                     </p>
                 </div>
 
