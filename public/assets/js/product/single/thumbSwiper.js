@@ -1,0 +1,3 @@
+function thumbSwiper(){setTimeout(()=>{new Swiper(".thumbSwiper",{navigation:{nextEl:".swiper-button-next",prevEl:".swiper-button-prev",},spaceBetween:10,slidesPerView:'auto',freeMode:!0,watchSlidesProgress:!0,preloadImages:!0,lazy:{loadPrevNext:!0,},});const videoThumbnail=document.querySelector('.thumbnail-gallery .swiper-slide:nth-child(2)');if(videoThumbnail){videoThumbnail.addEventListener('click',function(){alert('Video would play here in a real implementation')})}
+const downloadButton=document.querySelector('.bg-red-600');if(downloadButton){downloadButton.addEventListener('click',function(){this.classList.add('scale-95');setTimeout(()=>{this.classList.remove('scale-95')},200)})}},500)}
+export default thumbSwiper
