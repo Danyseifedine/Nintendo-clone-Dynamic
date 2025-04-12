@@ -190,7 +190,7 @@
                     <div class="w-full flex justify-center md:w-3/5">
                         @if ($primaryMarketingVisual->count() > 0)
                             <img src="{{ $primaryMarketingVisual->first()->getUrl() }}" alt="{{ $product->name }}"
-                                class="max-w-[24rem] h-[400px] object-cover">
+                                class="max-w-full h-[400px] object-cover">
                         @else
                             <img src="{{ asset('assets/images/placeholder.jpg') }}" alt="{{ $product->name }}"
                                 class="w-full h-[400px] object-cover">

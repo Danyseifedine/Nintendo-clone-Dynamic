@@ -4,5 +4,6 @@ export default function initializeReadMoreFunctionality(){const readMoreBtn=docu
 const closeSvg=`
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" role="presentation" alt="" data-testid="PlusIcon" color="currentColor" size="24"><path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" d="M32.04 12h-12V0h-8v12h-12v8h12v12h8V20h12v-8z"></path></svg>
 `
-if(!hiddenDescription||!fullDescription||!readMoreBtn){return}
-const fullText=hiddenDescription.innerHTML;const truncatedText=fullText.substring(0,600)+'...';fullDescription.innerHTML=truncatedText;let isExpanded=!1;readMoreBtn.addEventListener('click',()=>{isExpanded=!isExpanded;if(isExpanded){fullDescription.innerHTML=fullText;readMoreBtn.querySelector('span').textContent='Read less';readMoreBtn.querySelector('svg').innerHTML=openSvg}else{fullDescription.innerHTML=truncatedText;readMoreBtn.querySelector('span').textContent='Read more';readMoreBtn.querySelector('svg').innerHTML=closeSvg}})}
+if(!hiddenDescription||!fullDescription){return}
+const fullText=hiddenDescription.innerHTML;let truncatedText='';if(fullText.length>600){truncatedText=fullText.substring(0,600)+'...'}else{truncatedText=fullText}
+fullDescription.innerHTML=truncatedText;let isExpanded=!1;if(readMoreBtn){readMoreBtn.addEventListener('click',()=>{isExpanded=!isExpanded;if(isExpanded){fullDescription.innerHTML=fullText;readMoreBtn.querySelector('span').textContent='Read less';readMoreBtn.querySelector('svg').innerHTML=openSvg}else{fullDescription.innerHTML=truncatedText;readMoreBtn.querySelector('span').textContent='Read more';readMoreBtn.querySelector('svg').innerHTML=closeSvg}})}}
