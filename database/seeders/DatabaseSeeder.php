@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
-            'name' => 'admin',
-            'email' => 'admin@admin.com',
+            'name' => 'Mr Wassim Hakim',
+            'email' => 'Mr.Wassim.Hakim@admin.com',
             'password' => Hash::make('admin'),
         ]);
 
@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
         $adminRole = Role::firstOrCreate(['name' => 'super_admin']);
         $moderatorRole = Role::firstOrCreate(['name' => 'moderator']);
 
-        $user = User::where('email', 'admin@admin.com')->first();
+        $user = User::where('email', 'Mr.Wassim.Hakim@admin.com')->first();
         if ($user) {
             $user->assignRole('super_admin');
         }
