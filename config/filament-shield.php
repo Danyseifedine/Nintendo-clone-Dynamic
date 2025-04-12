@@ -21,7 +21,7 @@ return [
 
     'super_admin' => [
         'enabled' => true,
-        'role_name' => 'admin',
+        'role_name' => 'super_admin',
         'define_via_gate' => false,
         'intercept_gate' => 'before', // after
     ],
@@ -34,6 +34,7 @@ return [
     'permission_prefixes' => [
         'resource' => [
             'create',
+            'viewAny',
             'update',
             'delete',
         ],
@@ -48,6 +49,10 @@ return [
         'widgets' => true,
         'resources' => true,
         'custom_permissions' => true,
+    ],
+
+    'custom_permissions' => [
+        'panel_access' => 'Access the admin panel',
     ],
 
     'generator' => [
@@ -80,13 +85,4 @@ return [
     'register_role_policy' => [
         'enabled' => true,
     ],
-
-    'custom_permissions' => [
-        'panel_access' => [
-            'name' => 'panel_access',
-            'label' => 'Access Admin Panel',
-            'description' => 'Allow user to access the admin panel',
-        ],
-    ],
-
 ];

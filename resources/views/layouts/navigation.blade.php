@@ -98,7 +98,7 @@
                 </div>
             @endauth
 
-            @if (auth()->check() && auth()->user()->hasRole('admin'))
+            @if (auth()->check() && auth()->user()->hasRole('super_admin'))
                 <a href="{{ url('/panel') }}"
                     class="border border-nintendo-red font-nintendo rounded-full text-nintendo-red px-[15px] py-[1px]">
                     <span class="text-[0.875rem]"> Panel

@@ -62,7 +62,7 @@
                     Products
                 </a>
 
-                @if (auth()->user()->hasRole('admin'))
+                @if (auth()->user()->hasRole('super_admin'))
                     <a href="{{ url('/panel') }}"
                         class="bg-white border-2 border-nintendo-red text-nintendo-red font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-red-500/30 hover:bg-red-50 transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 active:translate-y-1 active:shadow-none flex items-center justify-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"

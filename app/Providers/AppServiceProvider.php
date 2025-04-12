@@ -7,7 +7,7 @@ use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Gate;
 use Filament\Navigation\NavigationBuilder;
 use Filament\Pages\Dashboard;
-
+use App\Models\User;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,10 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Filament::serving(function () {
-            if (auth()->check() && !auth()->user()->hasPermissionTo('panel_access')) {
-                abort(403, 'La. Mafik Mafik 😊');
-            }
+        Gate::before(function (User $user, string $ability) {
+            return $user->isSuperAdmin() ? true : null;
         });
     }
 }

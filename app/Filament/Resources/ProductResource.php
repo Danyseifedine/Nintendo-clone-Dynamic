@@ -30,11 +30,15 @@ class ProductResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
+                    ->helperText('Enter the product name')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('description_title')
                     ->required()
+                    ->helperText('Enter the product description title')
                     ->maxLength(255),
                 RichEditor::make('description')
+                    ->required()
+                    ->helperText('Enter the product description')
                     ->toolbarButtons([
                         'blockquote',
                         'bold',
@@ -53,19 +57,26 @@ class ProductResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('price')
                     ->required()
+                    ->helperText('Enter the product price')
                     ->numeric()
                     ->prefix('$'),
                 Forms\Components\Toggle::make('has_free_demo')
-                    ->required(),
+                    ->required()
+                    ->helperText('Toggle if the product has a free demo'),
                 Forms\Components\TextInput::make('discount')
                     ->required()
+                    ->helperText('Enter the product discount')
                     ->numeric()
                     ->default(0),
-                Forms\Components\DateTimePicker::make('discount_start_date'),
-                Forms\Components\DateTimePicker::make('discount_end_date'),
+                Forms\Components\DateTimePicker::make('discount_start_date')
+                    ->helperText('Enter the product discount start date'),
+                Forms\Components\DateTimePicker::make('discount_end_date')
+                    ->helperText('Enter the product discount end date'),
                 Select::make('tags')
                     ->relationship('productTags', 'name')
                     ->multiple()
+                    ->helperText('Select the product tags')
+                    ->required()
                     ->preload()
                     ->searchable(),
                 SpatieMediaLibraryFileUpload::make('product_images')
@@ -73,17 +84,20 @@ class ProductResource extends Resource
                     ->multiple()
                     ->maxFiles(8)
                     ->label('Product Images')
-                    ->helperText('Upload product images (max 5)')
+                    ->helperText('Upload product images (max 8, at least 1 required)')
+                    ->required()
                     ->columnSpanFull(),
                 SpatieMediaLibraryFileUpload::make('product_thumbnail')
                     ->collection('product-thumbnail')
                     ->label('Product Thumbnail')
+                    ->required()
                     ->helperText('Upload a thumbnail image for the product')
                     ->columnSpanFull(),
                 SpatieMediaLibraryFileUpload::make('primary_marketing_visual')
                     ->collection('primary-marketing-visual')
                     ->label('Primary Marketing Visual')
                     ->helperText('Upload a primary marketing visual for the product')
+                    ->required()
                     ->columnSpanFull(),
             ]);
     }
