@@ -57,21 +57,44 @@ class ProductResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('price')
                     ->required()
-                    ->helperText('Enter the product price')
+                    ->helperText('Enter the product price (if 0, free demo and discount will be disabled)')
                     ->numeric()
-                    ->prefix('$'),
+                    ->prefix('$')
+                    ->live()
+                    ->afterStateUpdated(function ($state, $set) {
+                        if ($state == 0) {
+                            $set('has_free_demo', false);
+                            $set('discount', 0);
+                        }
+                    }),
                 Forms\Components\Toggle::make('has_free_demo')
                     ->required()
-                    ->helperText('Toggle if the product has a free demo'),
+                    ->helperText('Toggle if the product has a free demo (cannot be used with free products or discounts)')
+                    ->disabled(fn(callable $get) => $get('price') == 0)
+                    ->live()
+                    ->afterStateUpdated(function ($state, $set, callable $get) {
+                        if ($state && $get('discount') > 0) {
+                            $set('discount', 0);
+                        }
+                    }),
                 Forms\Components\TextInput::make('discount')
                     ->required()
-                    ->helperText('Enter the product discount')
+                    ->helperText('Enter the product discount (cannot be used with free products or free demos)')
                     ->numeric()
-                    ->default(0),
+                    ->default(0)
+                    ->disabled(fn(callable $get) => $get('price') == 0 || $get('has_free_demo'))
+                    ->live()
+                    ->afterStateUpdated(function ($state, $set, callable $get) {
+                        if ($state > 0 && $get('has_free_demo')) {
+                            $set('has_free_demo', false);
+                        }
+                    }),
                 Forms\Components\DateTimePicker::make('discount_start_date')
-                    ->helperText('Enter the product discount start date'),
+                    ->helperText('Enter the product discount start date')
+                    ->disabled(fn(callable $get) => $get('price') == 0 || $get('discount') == 0 || $get('has_free_demo')),
                 Forms\Components\DateTimePicker::make('discount_end_date')
-                    ->helperText('Enter the product discount end date'),
+                    ->helperText('Enter the product discount end date')
+                    ->disabled(fn(callable $get) => $get('price') == 0 || $get('discount') == 0 || $get('has_free_demo')),
                 Select::make('tags')
                     ->relationship('productTags', 'name')
                     ->multiple()

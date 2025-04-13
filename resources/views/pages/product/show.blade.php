@@ -98,8 +98,37 @@
                             <h1 class="text-3xl font-[600] text-gray-600">{{ $product->name }}</h1>
                         </div>
 
-                        <div class="mb-8 flex items-center md:px-0 px-4 justify-between gap-2 mt-12">
-                            <span class="text-3xl font-[600] text-gray-600">${{ $product->price }}</span>
+                        <!-- Product badges -->
+                        <div class="flex gap-2 md:px-0 px-4 mb-4">
+                            @if ($product->has_free_demo)
+                                <span class="bg-blue-600 text-white text-xs px-3 py-1 rounded-full">Free demo</span>
+                            @endif
+                            @if ($product->price == 0)
+                                <span class="bg-purple-600 text-white text-xs px-3 py-1 rounded-full">Free
+                                    download</span>
+                            @endif
+                            @if ($product->is_on_sale && $product->discount_end_date)
+                                <span class="bg-red-600 text-white text-xs px-3 py-1 rounded-full">
+                                    Sale ends: {{ $product->discount_end_date->format('M d') }}
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="mb-8 flex items-center md:px-0 px-4 justify-between gap-2 mt-8">
+                            <div class="flex items-center gap-3">
+                                @if ($product->price == 0)
+                                    <span class="text-3xl font-[600] text-gray-600">Free</span>
+                                @elseif ($product->is_on_sale)
+                                    <span
+                                        class="text-3xl font-[600] text-gray-600">${{ $product->discounted_price }}</span>
+                                    <span
+                                        class="text-xl font-[500] text-gray-400 line-through">${{ $product->price }}</span>
+                                    <span
+                                        class="bg-red-600 text-white text-sm font-bold px-2 py-1 clip-tag rounded">-{{ $product->discount }}%</span>
+                                @else
+                                    <span class="text-3xl font-[600] text-gray-600">${{ $product->price }}</span>
+                                @endif
+                            </div>
                             <button class="text-red-600">
                                 <svg viewBox="0 0 54 54" fill="currentColor" stroke="currentColor" width="50"
                                     role="presentation" alt="" data-testid="heartspark" color="currentColor"
@@ -110,10 +139,12 @@
                                         </path>
                                     </g>
                                     <g class="sparks hidden">
-                                        <path class="spark" d="M27 8V0M27 46v8" stroke-width="2"></path>
+                                        <path class="spark" d="M27 8V0M27 46v8" stroke-width="2">
+                                        </path>
                                         <path class="spark" d="M41.171 12.828l5.657-5.657M12.829 12.828L7.171 7.172"
                                             stroke-width="1.99998"></path>
-                                        <path class="spark" d="M46 27h8M8 27H0" stroke-width="2"></path>
+                                        <path class="spark" d="M46 27h8M8 27H0" stroke-width="2">
+                                        </path>
                                         <path class="spark" d="M41.172 41.172l5.657 5.656M12.829 41.171l-5.657 5.657"
                                             stroke-width="1.99998"></path>
                                     </g>
@@ -133,13 +164,24 @@
                                             fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"></path>
                                     </svg>
                                     <span class="text-xl">
-                                        Direct Download
+                                        @if ($product->price == 0)
+                                            Free Download
+                                        @elseif ($product->has_free_demo)
+                                            Try Free Demo
+                                        @else
+                                            Direct Download
+                                        @endif
                                     </span>
                                 </button>
-                                <p class="text-xs md:px-0 px-4 text-gray-600">This item will be sent to your system
-                                    automatically
-                                    after
-                                    purchase.</p>
+                                <p class="text-xs md:px-0 px-4 text-gray-600">
+                                    @if ($product->price == 0)
+                                        This item is free and will be sent to your system automatically.
+                                    @elseif ($product->has_free_demo)
+                                        Try the free demo before purchasing the full game.
+                                    @else
+                                        This item will be sent to your system automatically after purchase.
+                                    @endif
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -427,7 +469,7 @@
                                 role="presentation" alt="" data-testid="GearIcon" size="28"
                                 color="#484848">
                                 <path
-                                    d="M30.6 13.1h-2.4c-.3-1.4-.8-2.6-1.5-3.8l1.7-1.7c.5-.5.5-1.4 0-1.9l-2.1-2.1c-.5-.5-1.4-.5-1.9 0l-1.7 1.7c-1.2-.7-2.4-1.3-3.8-1.5V1.4c0-.7-.6-1.4-1.4-1.4h-3c-.7 0-1.4.6-1.4 1.4v2.4c-1.4.4-2.6.8-3.8 1.5L7.6 3.6c-.5-.5-1.4-.5-1.9 0L3.6 5.7c-.6.5-.6 1.4 0 1.9l1.7 1.7c-.7 1.2-1.3 2.4-1.5 3.8H1.3c-.7 0-1.4.6-1.4 1.4v3c0 .7.6 1.4 1.4 1.4h2.4c.3 1.4.8 2.6 1.5 3.8l-1.7 1.7c-.5.5-.5 1.4 0 1.9l2.1 2.1c.6.5 1.4.5 2 0l1.7-1.7c1.2.7 2.4 1.3 3.8 1.5v2.5c0 .7.6 1.4 1.4 1.4h3c.7 0 1.4-.6 1.4-1.4v-2.4c1.4-.3 2.6-.8 3.8-1.5l1.7 1.7c.5.5 1.4.5 1.9 0l2.1-2.1c.5-.5.5-1.4 0-1.9l-1.7-1.7c.7-1.2 1.3-2.4 1.5-3.8h2.4c.7 0 1.4-.6 1.4-1.4v-3c.1-.9-.6-1.5-1.4-1.5zM16 21.6c-3.1 0-5.6-2.5-5.6-5.6 0-3.1 2.5-5.6 5.6-5.6 3.1 0 5.6 2.5 5.6 5.6-.1 3.1-2.6 5.6-5.6 5.6z"
+                                    d="M30.6 13.1h-2.4c-.3-1.4-.8-2.6-1.5-3.8l1.7-1.7c.5-.5.5-1.4 0-1.9l-2.1-2.1c-.5-.5-1.4-.5-1.9 0l-1.7 1.7c-1.2-.7-2.4-1.3-3.8-1.5V1.4c0-.7-.6-1.4-1.4-1.4h-3c-.7 0-1.4.6-1.4 1.4v2.4c-1.4.4-2.6.8-3.8 1.5L7.6 3.6c-.5-.5-1.4-.5-1.9 0L3.6 5.7c-.6.5-.6 1.4 0 1.9l1.7 1.7c-.7 1.2-1.3 2.4-1.5 3.8H1.3c-.7 0-1.4.6-1.4 1.4v3c0 .7.6 1.4 1.4 1.4h2.4c.3 1.4.8 2.6 1.5 3.8l-1.7 1.7c-.5.5-.5 1.4 0 1.9l2.1 2.1c.6.5 1.4.5 2 0l1.7-1.7c.7-1.2 1.3-2.4 1.5-3.8h2.4c.7 0 1.4-.6 1.4-1.4v-3c.1-.9-.6-1.5-1.4-1.5zM16 21.6c-3.1 0-5.6-2.5-5.6-5.6 0-3.1 2.5-5.6 5.6-5.6 3.1 0 5.6 2.5 5.6 5.6-.1 3.1-2.6 5.6-5.6 5.6z"
                                     fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"></path>
                             </svg>
                             <span class="font-medium text-gray-700 text-lg">ESRB rating </span>
@@ -464,7 +506,8 @@
                         <div class="swiper-wrapper">
                             <!-- Game Card 1 -->
                             @foreach ($similarProducts as $similarProduct)
-                                <div class="swiper-slide">
+                                <a href="{{ route('products.show', $similarProduct->replaceSpaceWithDash($similarProduct->name)) }}"
+                                    class="swiper-slide">
                                     <div
                                         class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 relative flex flex-col h-full">
                                         <div class="relative overflow-hidden">
@@ -494,26 +537,32 @@
                                                             class="bg-purple-600 text-white text-xs px-2 py-[3px] rounded-full">Free
                                                             download</span>
                                                     @endif
-                                                    @if (isset($similarProduct->sale_ends_at) && $similarProduct->sale_ends_at)
+                                                    @if ($similarProduct->is_on_sale && $similarProduct->discount_end_date)
                                                         <span
                                                             class="bg-red-600 text-white text-xs px-2 py-[3px] rounded-full">Sale
                                                             ends:
-                                                            {{ $similarProduct->sale_ends_at->format('M d') }}</span>
+                                                            {{ $similarProduct->discount_end_date->format('M d') }}</span>
                                                     @endif
                                                 </div>
                                                 <div class="flex items-center gap-5">
                                                     <div class="font-bold text-gray-900 mt-1">
                                                         @if ($similarProduct->price == 0)
                                                             Free
+                                                        @elseif ($similarProduct->is_on_sale)
+                                                            <span
+                                                                class="line-through text-gray-500 mr-2">${{ $similarProduct->price }}
+                                                            </span>
+                                                            <span
+                                                                class="text-[#E60012]">${{ $similarProduct->discounted_price }}</span>
                                                         @else
                                                             ${{ $similarProduct->price }}
                                                         @endif
                                                     </div>
-                                                    @if (isset($similarProduct->discount_percent) && $similarProduct->discount_percent > 0)
+                                                    @if ($similarProduct->is_on_sale && $similarProduct->discount > 0)
                                                         <div class="relative inline-block">
                                                             <div
                                                                 class="bg-red-600 text-white text-xs font-bold px-2 py-1 clip-tag">
-                                                                -{{ $similarProduct->discount_percent }}%
+                                                                -{{ $similarProduct->discount }}%
                                                             </div>
                                                         </div>
                                                     @endif
@@ -562,7 +611,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             @endforeach
                         </div>
                     </div>

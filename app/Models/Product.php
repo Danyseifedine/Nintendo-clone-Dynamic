@@ -136,6 +136,11 @@ class Product extends Model implements HasMedia
         return $query;
     }
 
+    public function replaceSpaceWithDash($string)
+    {
+        return str_replace(' ', '-', $string);
+    }
+
 
     public static function handleTagSession($request)
     {

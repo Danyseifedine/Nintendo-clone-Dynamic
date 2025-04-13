@@ -80,7 +80,7 @@ class ProductController extends Controller
             return $query->orderBy('created_at', 'desc');
         });
 
-        $products = $query->paginate(12);
+        $products = $query->paginate(8);
 
         $transformedProducts = $products->through(function ($product) {
             return [
