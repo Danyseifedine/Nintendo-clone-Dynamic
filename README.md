@@ -31,7 +31,6 @@ A dynamic Nintendo product showcase platform developed by Dany Seifeddine. This 
 -   Role-based access control
 -   Available roles: User, Moderator, Super Admin
 -   Granular permissions system
--   No email verification required (easily integrable)
 
 ## Website Structure
 
