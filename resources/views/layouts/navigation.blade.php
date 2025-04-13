@@ -98,7 +98,7 @@
                 </div>
             @endauth
 
-            @if (auth()->check() && auth()->user()->hasRole('super_admin'))
+            @if (auth()->check() && auth()->user()->hasPermissionTo('panel_access'))
                 <a href="{{ url('/panel') }}"
                     class="border border-nintendo-red font-nintendo rounded-full text-nintendo-red px-[15px] py-[1px]">
                     <span class="text-[0.875rem]"> Panel
@@ -1035,20 +1035,20 @@
                 </a>
             </div>
             @auth
-            <div>
-                <a href="{{ route('logout') }}"
-                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                    class="flex items-center justify-center text-white bg-blue-700 text-center py-3 rounded-lg mt-3 font-semibold">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                    </svg>
-                    Sign out
-                </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                    @csrf
-                </form>
+                <div>
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                        class="flex items-center justify-center text-white bg-blue-700 text-center py-3 rounded-lg mt-3 font-semibold">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        Sign out
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                        @csrf
+                    </form>
                 </div>
             @endauth
         </div>
@@ -1277,6 +1277,7 @@
                         </div>
                     </a>
 
+
                     <!-- Additional Links -->
                     <div class="bg-white rounded-lg border border-gray-200 mb-4">
                         <a href="#"
@@ -1340,23 +1341,28 @@
                         </a>
                     </div>
                     @auth
-                    <div>
-                        <a href="{{ route('logout') }}"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                            class="flex items-center justify-center text-white bg-blue-700 text-center py-3 rounded-lg mt-3 font-semibold">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                            </svg>
-                            Sign out
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                            @csrf
+                        <div>
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                class="flex items-center justify-center text-white bg-blue-700 text-center py-3 rounded-lg mt-3 font-semibold">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                </svg>
+                                Sign out
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                                @csrf
                             </form>
                         </div>
                     @endauth
                 </div>
+                <a href="{{ url('/panel') }}"
+                    class="flex items-center justify-center text-white bg-blue-700 text-center py-3 rounded-lg mt-3 font-semibold">
+                    Panel
+                </a>
+
             </div>
 
             <!-- menu -->
