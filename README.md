@@ -20,7 +20,7 @@ A dynamic Nintendo product showcase platform developed by Dany Seifeddine. This 
 
 ### Dynamic User Experience
 
--   Real-time filtering without page reloads
+-   Real-time filtering
 -   Dynamic pagination (AJAX-based, 8 items per page)
 -   Tag-based filtering
 -   Product suggestions based on tags
